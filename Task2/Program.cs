@@ -13,12 +13,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Reflection;
+using System.Linq;
 using log4net;
 
 namespace Task2
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public class UseForEqualityCheck: System.Attribute
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    public class UseForEqualityCheck : Attribute
     {
         private int _propertyID;
 
@@ -37,10 +38,8 @@ namespace Task2
     public class Product
     {
         private int _ID;
-        [UseForEqualityCheck(1)]
         private string _Code;
         private string _Name;
-        [UseForEqualityCheck(2)]
         private double _Price;
 
         public int ID {
@@ -52,6 +51,7 @@ namespace Task2
             }
         }
 
+        [UseForEqualityCheck(1)]
         public string Code { 
             get {
                 return _Code;
@@ -61,6 +61,7 @@ namespace Task2
             }
         }
 
+        [UseForEqualityCheck(2)]
         public string Name {
             get {
                 return _Name;
@@ -80,15 +81,8 @@ namespace Task2
         }
     }
 
-
-    interface IEqualityComparer<T>
+    public class ComparableProduct : Product, IComparable
     {
-        bool IsEquals(T obj);
-    }
-
-    public class ComparableProduct : Product, IComparable, IEqualityComparer<Product>
-    {
-        private System.Attribute[] thisAttributes;
         private System.Type thisType;
         public int CompareTo(object obj)
         {
@@ -100,27 +94,43 @@ namespace Task2
             else
                 throw new ArgumentException("The compared object is not a ComparableProduct");
         }
-        public bool IsEquals(Product otherProduct)
+    }
+
+    public class ProductComparer : IEqualityComparer<Product>
+    {
+        public bool Equals(Product x, Product y)
         {
-            if (otherProduct == null) return false;
+            if (ReferenceEquals(x, y)) return true;
 
-            //Lazy computation 
-            if (thisType == null)
-                thisType = typeof(ComparableProduct);
+            if (ReferenceEquals(x, null) || ReferenceEquals(y, null)) return false;
 
-            bool result = false;
-
-            foreach (PropertyInfo property in thisType.GetProperties())
+            bool is_equal = true;
+            foreach (var property in typeof(Product).GetProperties())
             {
-                if (property.GetCustomAttribute(typeof(UseForEqualityCheck)) != null)
+                var attribute = Attribute.GetCustomAttribute(property, typeof(UseForEqualityCheck)) as UseForEqualityCheck;
+                if (attribute != null)
                 {
-                    result = property.GetValue(this) == property.GetValue(otherProduct);
-                    if (result == false)
-                        return result;
+                    is_equal = is_equal && property.GetValue(x).Equals(property.GetValue(y));
+                    if (!is_equal) break;
                 }
             }
+            return is_equal;
+        }
 
-            return result;
+        public int GetHashCode(Product product)
+        {
+            if (Object.ReferenceEquals(product, null)) return 0;
+
+            int hashCode = 0;
+            foreach (var property in typeof(Product).GetProperties())
+            {
+                var attribute = Attribute.GetCustomAttribute(property, typeof(UseForEqualityCheck)) as UseForEqualityCheck;
+                if (attribute != null)
+                {
+                    hashCode = hashCode ^ property.GetValue(product).GetHashCode();
+                }
+            }
+            return hashCode;
         }
     }
 
@@ -211,24 +221,11 @@ namespace Task2
 
         private static void ShowUniqueProducts()
         {
-            List<ComparableProduct> uniqueProducts = new List<ComparableProduct>(numberOfProducts);
-
-            foreach (ComparableProduct p in _Products) {
-                bool alreadyAdded = false;
-
-                int i = p.ID;
-
-                foreach (ComparableProduct up in uniqueProducts) {
-                    int j = up.ID;
-                    alreadyAdded = p.IsEquals(up);
-                }
-                if (alreadyAdded) continue;
-                uniqueProducts.Add(p);
-            }
+            IEnumerable<Product> uniqueProducts = _Products.Distinct(new ProductComparer());
 
             Console.WriteLine("----------------------------------------------\n");
             Console.WriteLine("The List of UNIQUE products\n");
-            foreach (ComparableProduct cp in uniqueProducts) {
+            foreach (Product cp in uniqueProducts) {
                 Console.WriteLine("Code: " + cp.Code + "\t" + "ID: " + cp.ID + "\t" + "Name: " + cp.Name + "\t" + "Price:" + cp.Price);
             }
             Console.ReadKey();
@@ -238,9 +235,9 @@ namespace Task2
         {
             InitializeProductList();
 
-            //LogToConsole();
+            LogToConsole();
 
-            //LogToFile();
+            LogToFile();
 
             ShowUniqueProducts();
         }
