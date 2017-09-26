@@ -18,5 +18,9 @@ namespace Task3
         public string Name { get; set; }
 
         public double Price { get; set; }
+
+        // Task3-specific: a new property to check migrations
+        [UseForEqualityCheck]
+        public int GroupID { get; set; }
     }
 }

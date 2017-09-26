@@ -24,13 +24,29 @@ namespace Task3
         public delegate void LogString(string logMessage, LogLevel logLevel);
 
         //private
-        private const int secToWait = 2;
+        private const int secToWait = 1;
         private const int numberOfProducts = 6;
 
         //Declare an instance for log4net
         private static readonly ILog _Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private static List<ComparableProduct> _Products;
+        private static ProductDBContext _ProductsDB;
+
+        private static List<ComparableProduct> CreateProductList()
+        {
+            logString(string.Format("Create a new product list containing {0} products.", numberOfProducts), LogLevel.llInfo);
+            return new List<ComparableProduct>(numberOfProducts)
+            {
+                new ComparableProduct() { ID = 1, Code = "I5_760_CPU", Name = "Intel Core i5-760", Price = 120, GroupID = 1 },
+                new ComparableProduct() { ID = 2, Code = "I5_760S_CPU", Name = "Intel Core i5-760S", Price = 115, GroupID = 1 },
+                new ComparableProduct() { ID = 3, Code = "I5_750_CPU", Name = "Intel Core i5-750", Price = 100, GroupID = 1 },
+                new ComparableProduct() { ID = 4, Code = "I7-8650U_CPU", Name = "Intel Core i7-8650U", Price = 450, GroupID = 2 },
+                new ComparableProduct() { ID = 5, Code = "I7_7820HK_CPU", Name = "Intel Core i7-7820HK", Price = 300, GroupID = 2 },
+                new ComparableProduct() { ID = 6, Code = "I5_760_CPU", Name = "Intel Core i5-760", Price = 125, GroupID = 1 }  // Dublicate for the 1th item
+            };
+        }
+
 
     //public
         public static LogString logString { get; set; }
@@ -64,7 +80,7 @@ namespace Task3
                     break;
 
                 case LogLevel.llDebug:
-                    _Logger.Fatal(logMessage);
+                    _Logger.Debug(logMessage);
                     break;
             }
             Thread.Sleep(TimeSpan.FromSeconds(secToWait));
@@ -84,11 +100,11 @@ namespace Task3
             }
 
             foreach (ComparableProduct cp in productList)
-                logString(string.Format("Code: {0} \t ID: {1} \t Name: {2} \t Price: {3} ", cp.Code, cp.ID, cp.Name, cp.Price), LogLevel.llInfo);
-
+                logString(string.Format("Code: {0} \t ID: {1} \t Name: {2} \t Price: {3} \t GroupID {4} ", 
+                                               cp.Code, cp.ID, cp.Name, cp.Price, cp.GroupID), LogLevel.llInfo);
         }
 
-        private static void RunSort()
+        private static void SortProductList()
         {
             if (logString == null)
             {
@@ -108,17 +124,24 @@ namespace Task3
 
         }
 
-        private static void InitializeProductList()
+        private static void InitializeProducts()
         {
+            logString("Create a new DB context.", LogLevel.llInfo);
+            _ProductsDB = new ProductDBContext();
 
-            _Products = new List<ComparableProduct>(numberOfProducts);
+            if (_ProductsDB.Products.Count() == 0) {
+                _Products = CreateProductList();
+                _ProductsDB.Products.AddRange(_Products);
+                _ProductsDB.SaveChanges();
+            }
+        }
 
-            _Products.Add(new ComparableProduct() { ID = 1, Code = "I5_760_CPU", Name = "Intel Core i5-760", Price = 120 });
-            _Products.Add(new ComparableProduct() { ID = 2, Code = "I5_760S_CPU", Name = "Intel Core i5-760S", Price = 115 });
-            _Products.Add(new ComparableProduct() { ID = 3, Code = "I5_750_CPU", Name = "Intel Core i5-750", Price = 100 });
-            _Products.Add(new ComparableProduct() { ID = 4, Code = "I7-8650U_CPU", Name = "Intel Core i7-8650U", Price = 450 });
-            _Products.Add(new ComparableProduct() { ID = 5, Code = "I7_7820HK_CPU", Name = "Intel Core i7-7820HK", Price = 300 });
-            _Products.Add(new ComparableProduct() { ID = 6, Code = "I5_760_CPU", Name = "Intel Core i5-760", Price = 120 }); // Dublicate for 1th item!
+        private static void ShowDBContext()
+        {
+            var query = from products in _ProductsDB.Products select products;
+            logString("Show DB Content using query: \n", LogLevel.llInfo);
+            ShowProductList(query.ToList());
+            logString("---", LogLevel.llInfo);
         }
 
         private static void ShowUniqueProducts()
@@ -137,12 +160,15 @@ namespace Task3
 
         static void Main()
         {
-            InitializeProductList();
 
             logString = LogToConsole;
 //            logString = LogToFileNet;
 
-            RunSort();
+            InitializeProducts();
+
+            ShowDBContext();
+
+            SortProductList();
 
             ShowUniqueProducts();
 

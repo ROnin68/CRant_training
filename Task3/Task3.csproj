@@ -72,7 +72,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComparableProduct.cs" />
+    <Compile Include="Migrations\201709260044213_InitialCreate.cs" />
+    <Compile Include="Migrations\201709260044213_InitialCreate.Designer.cs">
+      <DependentUpon>201709260044213_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709260118442_AddGroupID.cs" />
+    <Compile Include="Migrations\201709260118442_AddGroupID.Designer.cs">
+      <DependentUpon>201709260118442_AddGroupID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ProductDBContext.cs" />
     <Compile Include="ProductsComparer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +102,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709260044213_InitialCreate.resx">
+      <DependentUpon>201709260044213_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709260118442_AddGroupID.resx">
+      <DependentUpon>201709260118442_AddGroupID.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
