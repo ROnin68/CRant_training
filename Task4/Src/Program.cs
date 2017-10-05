@@ -1,7 +1,7 @@
 ﻿/*
  "Delphi --> C#" retraining program.
 
- TASK #3
+ TASK #4
 
  Programmer: Oleg Rokach
 */
