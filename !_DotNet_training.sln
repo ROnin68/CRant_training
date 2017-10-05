@@ -5,6 +5,36 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1", "Task1\Task1.csproj", "{434FD928-29BA-4520-B884-86C6311A27B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2", "Task2\Task2.csproj", "{A60E3E1C-6A58-4BD4-BD8F-B759EE7C3CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3", "Task3\Task3.csproj", "{87C9C3F4-837A-4FB0-8CDF-05A290004725}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4_GUI", "Task4_GUI\Task4_GUI.csproj", "{CBD24036-2EB9-4F5F-A07C-8576533F89C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4", "Task4\Task4.csproj", "{E8EE774C-6812-4A72-8BF2-819CC484AB36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Entities", "1 - Entities", "{AFACA191-3D9B-4190-97F5-D3A55B5F1342}"
+	ProjectSection(SolutionItems) = preProject
+		Entities\Client.cs = Entities\Client.cs
+		Entities\Order.cs = Entities\Order.cs
+		Entities\OrderDetail.cs = Entities\OrderDetail.cs
+		Entities\Product.cs = Entities\Product.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - BusinessLogic", "2 - BusinessLogic", "{1644BDDD-8CDA-44F3-AA63-01C5203C36FE}"
+	ProjectSection(SolutionItems) = preProject
+		BusinesLogic\ProductsComparer.cs = BusinesLogic\ProductsComparer.cs
+		BusinesLogic\Task1Controller.cs = BusinesLogic\Task1Controller.cs
+		BusinesLogic\Task2Controller.cs = BusinesLogic\Task2Controller.cs
+		BusinesLogic\Task3Controller.cs = BusinesLogic\Task3Controller.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - DB", "3 - DB", "{5D3F7AFB-2875-4029-80C2-8FA563659777}"
+	ProjectSection(SolutionItems) = preProject
+		DB\DBContext.cs = DB\DBContext.cs
+		DB\ProductDBContext.cs = DB\ProductDBContext.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +45,22 @@ Global
 		{434FD928-29BA-4520-B884-86C6311A27B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{434FD928-29BA-4520-B884-86C6311A27B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{434FD928-29BA-4520-B884-86C6311A27B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60E3E1C-6A58-4BD4-BD8F-B759EE7C3CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60E3E1C-6A58-4BD4-BD8F-B759EE7C3CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60E3E1C-6A58-4BD4-BD8F-B759EE7C3CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60E3E1C-6A58-4BD4-BD8F-B759EE7C3CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87C9C3F4-837A-4FB0-8CDF-05A290004725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C9C3F4-837A-4FB0-8CDF-05A290004725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87C9C3F4-837A-4FB0-8CDF-05A290004725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87C9C3F4-837A-4FB0-8CDF-05A290004725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBD24036-2EB9-4F5F-A07C-8576533F89C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD24036-2EB9-4F5F-A07C-8576533F89C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD24036-2EB9-4F5F-A07C-8576533F89C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD24036-2EB9-4F5F-A07C-8576533F89C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8EE774C-6812-4A72-8BF2-819CC484AB36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8EE774C-6812-4A72-8BF2-819CC484AB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8EE774C-6812-4A72-8BF2-819CC484AB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8EE774C-6812-4A72-8BF2-819CC484AB36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

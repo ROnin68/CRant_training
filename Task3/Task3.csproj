@@ -71,25 +71,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComparableProduct.cs" />
-    <Compile Include="Migrations\201709260044213_InitialCreate.cs" />
-    <Compile Include="Migrations\201709260044213_InitialCreate.Designer.cs">
-      <DependentUpon>201709260044213_InitialCreate.cs</DependentUpon>
+    <Compile Include="..\BusinesLogic\ProductsComparer.cs">
+      <Link>Src\ProductsComparer.cs</Link>
     </Compile>
-    <Compile Include="Migrations\201709260118442_AddGroupID.cs" />
-    <Compile Include="Migrations\201709260118442_AddGroupID.Designer.cs">
-      <DependentUpon>201709260118442_AddGroupID.cs</DependentUpon>
+    <Compile Include="..\BusinesLogic\Task1Controller.cs">
+      <Link>Src\Task1Controller.cs</Link>
+    </Compile>
+    <Compile Include="..\BusinesLogic\Task2Controller.cs">
+      <Link>Src\Task2Controller.cs</Link>
+    </Compile>
+    <Compile Include="..\BusinesLogic\Task3Controller.cs">
+      <Link>Src\Task3Controller.cs</Link>
+    </Compile>
+    <Compile Include="..\DB\ProductDBContext.cs">
+      <Link>Src\ProductDBContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Entities\Product.cs">
+      <Link>Src\Product.cs</Link>
+    </Compile>
+    <Compile Include="Migrations\201710050150557_InitialCreate.cs" />
+    <Compile Include="Migrations\201710050150557_InitialCreate.Designer.cs">
+      <DependentUpon>201710050150557_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710050153392_Product.GroupID.Added.cs" />
+    <Compile Include="Migrations\201710050153392_Product.GroupID.Added.Designer.cs">
+      <DependentUpon>201710050153392_Product.GroupID.Added.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductDBContext.cs" />
-    <Compile Include="ProductsComparer.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -104,11 +122,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709260044213_InitialCreate.resx">
-      <DependentUpon>201709260044213_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710050150557_InitialCreate.resx">
+      <DependentUpon>201710050150557_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709260118442_AddGroupID.resx">
-      <DependentUpon>201709260118442_AddGroupID.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710050153392_Product.GroupID.Added.resx">
+      <DependentUpon>201710050153392_Product.GroupID.Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

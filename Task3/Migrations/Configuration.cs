@@ -5,15 +5,15 @@ namespace Task3.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Task3.ProductDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DB.ProductDBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Task3.ProductDBContext";
+            ContextKey = "DB.ProductDBContext";
         }
 
-        protected override void Seed(Task3.ProductDBContext context)
+        protected override void Seed(DB.ProductDBContext context)
         {
             //  This method will be called after migrating to the latest version.
 
