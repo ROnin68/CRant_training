@@ -64,7 +64,6 @@ namespace BusinessLogic
         {
             var orders = new List<Order>();
             int[] clientIDs = _DBContext.Clients.Select(c => c.ID).ToArray();
-            Random r = new Random();
 
             for (int i = 0; i < orderCount; i++)
             {
@@ -73,7 +72,7 @@ namespace BusinessLogic
                     {
                         ClientID = getRandomFromArray(clientIDs),
                         DateCreated = getRandomDate(),
-                        Status = (OrderStatus)r.Next((int)OrderStatus.osPending, (int)OrderStatus.osCompleted),
+                        Status = (OrderStatus)random.Next((int)OrderStatus.osPending, (int)OrderStatus.osCompleted),
                     });
             }
             return orders;
