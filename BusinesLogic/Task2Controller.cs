@@ -14,6 +14,8 @@ namespace BusinessLogic
 
         public enum LogMode { lmConsole, lmFileLogger };
 
+        public bool MuteLog { get; set; }
+
         private LogMode _logMode;
 
         public LogMode logMode
@@ -33,6 +35,10 @@ namespace BusinessLogic
             }
         }
 
+        public Task2Controller()
+        {
+            MuteLog = false;
+        }
 
         //Declare an instance for log4net
         private static readonly ILog _Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -40,6 +46,8 @@ namespace BusinessLogic
 
         private void LogToConsole(string logMessage, LogLevel logLevel)
         {
+            if (MuteLog) return;
+
             if (logLevel == LogLevel.llFatal || logLevel == LogLevel.llError)
                 Console.Beep();
             Console.WriteLine(logMessage);
@@ -47,6 +55,8 @@ namespace BusinessLogic
 
         private void LogToFileNet(string logMessage, LogLevel logLevel)
         {
+            if (MuteLog) return;
+
             switch (logLevel)
             {
                 case LogLevel.llFatal:
