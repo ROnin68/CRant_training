@@ -48,7 +48,7 @@
     <Compile Include="Mapping\ClientMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\ClientFacade.cs" />
-    <Compile Include="Src\ClientNamesCensor.cs" />
+    <Compile Include="Src\ClientNamesFilter.cs" />
     <Compile Include="Src\IClientFacade.cs" />
   </ItemGroup>
   <ItemGroup>

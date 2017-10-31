@@ -34,7 +34,7 @@ namespace Task_ASP.AppFacade
 
         public List<DTO_Client> Clients()
         {
-            ClientNamesCensor filter = new ClientNamesCensor();
+            ClientNamesFilter filter = new ClientNamesFilter();
             var clientsList =
                 (from
                     client in _clientManager.Clients()
