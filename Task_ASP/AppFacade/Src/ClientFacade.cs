@@ -34,12 +34,12 @@ namespace Task_ASP.AppFacade
 
         public List<DTO_Client> Clients()
         {
-            DisplyNamesCensor filter = new DisplyNamesCensor();
+            ClientNamesCensor filter = new ClientNamesCensor();
             var clientsList =
                 (from
                     client in _clientManager.Clients()
                  where
-                     filter.DisplayNameAllowed(client.Name)
+                     filter.NameIsAllowed(client.Name)
                  select
                      client.ToFacadeDTOClient()
                 ).ToList();

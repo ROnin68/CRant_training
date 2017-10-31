@@ -2,9 +2,9 @@
 
 namespace Task_ASP.AppFacade
 {
-    public class DisplyNamesCensor
+    public class ClientNamesCensor
     {
-        public bool DisplayNameAllowed(string name)
+        public bool NameIsAllowed(string name)
         {
             Match match = Regex.Match(name, "[<>#]", RegexOptions.IgnoreCase);
 
