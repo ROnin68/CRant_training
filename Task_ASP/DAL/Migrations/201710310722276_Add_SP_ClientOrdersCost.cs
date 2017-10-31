@@ -1,0 +1,32 @@
+namespace DAL.Migrations
+{
+    using System.Data.Entity.Migrations;
+
+    public partial class Add_SP_ClientOrdersCost : DbMigration
+    {
+        public override void Up()
+        {
+            CreateStoredProcedure("ClientOrdersCost", AddProcedureScript);
+        }
+
+        public override void Down()
+        {
+            DropStoredProcedure("ClientOrdersCost");
+        }
+
+        private const string AddProcedureScript =
+        @"SELECT 
+          c.Name as Name, 
+          SUM(p.Price * od.ProductQuantity) as OrderCost 
+          FROM 
+            Clients c, Orders o, OrderDetails od, Products p 
+          WHERE 
+            o.ClientID = c.ID and
+            od.OrderID = o.ID and 
+            od.ProductID = p.ID
+          GROUP BY 
+            c.ID, c.Name 
+          Order BY 
+            c.ID";
+    }
+}
