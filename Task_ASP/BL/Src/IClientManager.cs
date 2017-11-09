@@ -11,5 +11,8 @@ namespace Task_ASP.BL
         IOperationResult ModifyClient(DTO_Client clientDTO);
         DTO_Client ClientByID(int clientID);
         List<DTO_Client> Clients();
+        List<DTO_Order> ClientsOrders(int clientID);
+        List<DTO_Order> ClientsOrders(int clientID, int startID, int ordersLimit);
+        void ClientsOrdersPagingInfo(int clientID, out int firstIT, out int lastID);
     }
 }

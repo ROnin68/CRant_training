@@ -59,8 +59,10 @@
   <ItemGroup>
     <Compile Include="DTO\DTO_Client.cs" />
     <Compile Include="DTO\DTO_ClientOrderCost.cs" />
+    <Compile Include="DTO\DTO_Order.cs" />
     <Compile Include="DTO\DTO_OrderCost.cs" />
     <Compile Include="Mapping\ClientMapper.cs" />
+    <Compile Include="Mapping\OrdersMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\AggregatedCalculations.cs" />
     <Compile Include="Src\ClientManager.cs" />

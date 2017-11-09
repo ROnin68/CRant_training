@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Task_ASP.BL.DTO;
 using Task_ASP.BL.Mapping;
@@ -85,25 +86,52 @@ namespace Task_ASP.BL
             _context.SaveChanges();
             return new SuccessfullOperation("Client modified successfully");
         }
-
         public List<DTO_Client> Clients()
         {
-            List<Client> clientList = (from cl in _context.Clients
-                                       where !cl.IsDeleted
-                                       select cl
-                                       ).ToList();
-
-            return clientList.ToDTOClientsList();
+            return (from cl in _context.Clients
+                    where !cl.IsDeleted
+                    select cl
+                   ).ToList().ToDTOClientsList();
         }
-
         public DTO_Client ClientByID(int clientID)
         {
-            Client client = (from cl in _context.Clients
-                             where cl.ID == clientID
-                             select cl).First();
-
-            return client.ToDTO_Client();
+            return (from cl in _context.Clients
+                    where cl.ID == clientID
+                    select cl).First().ToManagerDTO_Client();
         }
+        public List<DTO_Order> ClientsOrders(int clientID)
+        {
+            return (from o in _context.Orders
+                    where (o.ClientID == clientID)
+                    select o
+                   ).ToList().ToManagerOrdersList();
+        }
+        public List<DTO_Order> ClientsOrders(int clientID, int strartID, int ordersLimit)
+        {
+            return (from o in _context.Orders
+                    where (o.ClientID == clientID) && (o.ID > strartID)
+                    select o
+                   ).Take(ordersLimit).ToList().ToManagerOrdersList();
 
+
+        }
+        public void ClientsOrdersPagingInfo(int clientID, out int firstID, out int lastID)
+        {
+            var request = (from o in _context.Orders
+                           where (o.ClientID == clientID)
+                           select o.ID
+                          );
+            if (request != null)
+            {
+                firstID = request.Min();
+                lastID = request.Max();
+            }
+            else
+            {
+                firstID = 0;
+                lastID = 0;
+                throw new Exception("Invalid request parameters");
+            }
+        }
     }
 }

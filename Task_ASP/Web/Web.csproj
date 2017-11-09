@@ -101,14 +101,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\ClientsController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mapping\API\ClientMapper.cs" />
+    <Compile Include="Mapping\ClientMapper.cs" />
+    <Compile Include="Models\API\ClientModel.cs" />
+    <Compile Include="Models\API\OrderModel.cs" />
+    <Compile Include="Models\API\OrdersListModel.cs" />
+    <Compile Include="Models\ClientListModel.cs" />
+    <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Mapping\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppFacade\AppFacade.csproj">

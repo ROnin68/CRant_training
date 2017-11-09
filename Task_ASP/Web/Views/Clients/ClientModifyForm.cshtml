@@ -1,0 +1,17 @@
+﻿@model Task_01.Web.Models.ClientModel
+
+@{
+    ViewBag.Title = "ClientModify";
+}
+
+<h2>ClientModify</h2>
+
+@using (Html.BeginForm("ClientModify", "Client")) {
+
+    @Html.HiddenFor(x => x.ID)
+
+    <Label> Name: </Label>
+    <div>@Html.TextBoxFor(x => x.Name, new { style = "width:900px;" }) </div>
+    <br />
+    <div><input type="submit" value="Modify" /></div>
+}

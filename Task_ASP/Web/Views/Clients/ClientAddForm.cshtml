@@ -1,0 +1,14 @@
+﻿@model Task_01.Web.Models.ClientModel
+
+@{
+    ViewBag.Title = "NewClient";
+}
+
+<h2>NewClient</h2>
+
+@using (Html.BeginForm("ClientAdd", "Client")) {
+    <Label> Name: </Label>
+    <div>@Html.TextBoxFor(x => x.Name, new {style = "width:900px;" }) </div>
+    <br />
+    <div><input type="submit" value="Add" /></div>
+}

@@ -4,9 +4,14 @@ using Task_ASP.DAL.Entities;
 
 namespace Task_ASP.BL.Mapping
 {
-    static class Client_DTOMapper
+    static class ClientMapper
     {
-        public static DTO_Client ToDTO_Client(this Client client)
+        /// <summary>
+        /// DAL.Entities.Client --> BL.DTO.DTO_Client
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        public static DTO_Client ToManagerDTO_Client(this Client client)
         {
             return new DTO_Client()
             {
@@ -14,7 +19,11 @@ namespace Task_ASP.BL.Mapping
                 Name = client.Name
             };
         }
-
+        /// <summary>
+        /// BL.DTO.DTO_Client --> DAL.Entities.Client
+        /// </summary>
+        /// <param name="clientDTO"></param>
+        /// <returns></returns>
         public static Client ToClient(this DTO_Client clientDTO)
         {
             return new Client()
@@ -29,7 +38,7 @@ namespace Task_ASP.BL.Mapping
             var result = new List<DTO_Client>();
             foreach (var cl in clientsList)
             {
-                result.Add(cl.ToDTO_Client());
+                result.Add(cl.ToManagerDTO_Client());
             }
 
             return result;

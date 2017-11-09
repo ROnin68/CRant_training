@@ -20,7 +20,7 @@ namespace Task_ASP.AppFacade
 
         public IOperationResult AddClient(DTO_Client dtoClient)
         {
-            return _clientManager.AddClient(dtoClient.ToManagerDTOClient());
+            return _clientManager.AddClient(dtoClient.ToManagerClient());
         }
         public IOperationResult RemoveClient(int clientID)
         {
@@ -28,7 +28,7 @@ namespace Task_ASP.AppFacade
         }
         public IOperationResult ModifyClient(DTO_Client dtoClient)
         {
-            return _clientManager.ModifyClient(dtoClient.ToManagerDTOClient());
+            return _clientManager.ModifyClient(dtoClient.ToManagerClient());
         }
 
 
@@ -41,7 +41,7 @@ namespace Task_ASP.AppFacade
                  where
                      filter.NameIsAllowed(client.Name)
                  select
-                     client.ToFacadeDTOClient()
+                     client.ToFacadeClient()
                 ).ToList();
 
             return clientsList;
@@ -49,7 +49,21 @@ namespace Task_ASP.AppFacade
 
         public DTO_Client ClientByID(int clientID)
         {
-            return _clientManager.ClientByID(clientID).ToFacadeDTOClient();
+            return _clientManager.ClientByID(clientID).ToFacadeClient();
+        }
+
+        public List<DTO_Order> ClientsOrders(int clientID)
+        {
+            return _clientManager.ClientsOrders(clientID).ToFacadeOrdersList();
+        }
+        public List<DTO_Order> ClientsOrders(int clientID, int startID, int ordersLimit)
+        {
+            return _clientManager.ClientsOrders(clientID, startID, ordersLimit).ToFacadeOrdersList();
+        }
+        public void ClientsOrdersPagingInfo(int clientID, out int firstID, out int lastID)
+        {
+            _clientManager.ClientsOrdersPagingInfo(clientID, out firstID, out lastID);
         }
     }
+
 }

@@ -4,16 +4,26 @@ namespace Task_ASP.AppFacade.Mapping
 {
     static class ClientMapper
     {
-        public static DTO.DTO_Client ToFacadeDTOClient(this BL.DTO.DTO_Client clientBL)
+        /// <summary>
+        /// BL.DTO.DTO_Client --> AppFacade.DTO.DTO_Client
+        /// 
+        /// </summary>
+        /// <param name="blClient"></param>
+        /// <returns></returns>
+        public static DTO.DTO_Client ToFacadeClient(this BL.DTO.DTO_Client blClient)
         {
             return new DTO.DTO_Client()
             {
-                ID = clientBL.ID,
-                Name = clientBL.Name
+                ID = blClient.ID,
+                Name = blClient.Name
             };
         }
-
-        public static BL.DTO.DTO_Client ToManagerDTOClient(this DTO.DTO_Client clientDTO)
+        /// <summary>
+        /// AppFacade.DTO.DTO_Client --> BL.DTO.DTO_Client
+        /// </summary>
+        /// <param name="clientDTO"></param>
+        /// <returns></returns>
+        public static BL.DTO.DTO_Client ToManagerClient(this DTO.DTO_Client clientDTO)
         {
             return new BL.DTO.DTO_Client()
             {
@@ -28,7 +38,7 @@ namespace Task_ASP.AppFacade.Mapping
             var result = new List<DTO.DTO_Client>();
             foreach (var cl in clList)
             {
-                result.Add(cl.ToFacadeDTOClient());
+                result.Add(cl.ToFacadeClient());
             }
 
             return result;

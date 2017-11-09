@@ -1,0 +1,47 @@
+﻿@model Task_01.Web.Models.ClientListModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Model.OperationResult != null) {
+    if (Model.OperationResult.IsSuccessfull) {
+        <div> 
+            @Model.OperationResult.SuccessMessages
+        </div>
+    }
+    else {
+        <div> 
+            @(Model.OperationResult.WarningMessages ?? Model.OperationResult.ErrorMessages) 
+        </div>
+    }
+}
+
+
+<h2>List of clients</h2>
+<table id="ClientsList">
+    @foreach (var cl in Model.GetClients()) {
+        <tr>
+            <td>@cl.Name</td>
+            <td>
+                @using (Html.BeginForm("ClientModifyForm", "Clients")) {
+                    @Html.Hidden("ClientID", cl.ID)
+                    <input type="submit" value="Edit" />
+                }
+            </td>
+            <td></td>
+            <td>
+                @using (Html.BeginForm("ClientRemove", "Clients")) {
+                    @Html.Hidden("ClientID", cl.ID)
+                    <input type="submit" value="Remove" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<br>
+@Html.ActionLink("Add client", "ClientAddForm")
+
+
+
+

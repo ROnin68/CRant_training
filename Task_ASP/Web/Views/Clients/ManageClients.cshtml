@@ -1,0 +1,55 @@
+﻿@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js"></script>
+    <script src="@Url.Content("~/Scripts/app.js")"></script>
+}
+<div id="app" class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Client list</div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="client in clients">
+                            <td>{{client.ID}}</td>
+                            <td>{{client.Name}}</td>
+                            <td><button class="btn btn-default pull-right" v-on:click="showRecentOrders(client)">Recent Orders &raquo;</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading" v-if="!selectedClient">Select client to see Recent Orders</div>
+            <div class="panel-heading" v-if="!!selectedClient">{{selectedClient.Name}}'s Recent Orders</div>
+            <div class="panel-body">
+                <table class="table table-striped" v-if="!!selectedClient">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date Created</th>
+                            <th>Status</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="recentOrder in recentOrders">
+                            <td>{{recentOrder.ID}}</td>
+                            <td>{{recentOrder.DateCreated}}</td>
+                            <td>{{recentOrder.Status}}</td>
+                            <td>${{recentOrder.Cost}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
